@@ -13,7 +13,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::all(); // localhost error: Class 'App\Http\Controllers\Employee' not found
+        return view('employees.index', compact('employees'));
     }
 
     /**
