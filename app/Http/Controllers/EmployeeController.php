@@ -69,7 +69,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('employees.edit', compact('employee'));
     }
 
     /**
@@ -81,7 +82,19 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'share_name'=>'required',
+            'share_price'=> 'required|numeric',
+            'share_qty' => 'required|date'
+          ]);
+    
+          $employee = Employee::find($id);
+          $employee->share_name = $request->get('share_name');
+          $employee->share_price = $request->get('share_price');
+          $employee->share_qty = $request->get('share_qty');
+          $employee->save();
+    
+          return redirect('/employees')->with('success', 'Töötaja on uuendatud');
     }
 
     /**
