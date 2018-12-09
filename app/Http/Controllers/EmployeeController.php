@@ -35,7 +35,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'share_name'=>'required',
+            'share_price'=> 'required|numeric',
+            'share_qty' => 'required|date'
+          ]);
+          $employee = new Employee([ // localhost error: Class 'App\Http\Controllers\Employee' not found
+            'share_name' => $request->get('share_name'),
+            'share_price'=> $request->get('share_price'),
+            'share_qty'=> $request->get('share_qty')
+          ]);          
+          $employee->save();
+          return redirect('/employees')->with('success', 'Töötaja on lisatud');
     }
 
     /**
